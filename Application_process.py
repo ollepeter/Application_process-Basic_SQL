@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for
+import functions
+
 
 app = Flask(__name__)
 
@@ -20,9 +22,6 @@ def show_menu():
                 url_for('applicants'),
                 url_for('appliciants_and_mentors'),
                 ]
-    print(menu_list)
-    print('0000000000000000000000')
-    print(url_list)
     return render_template('index.html',
                            menu_list=menu_list,
                            url_list=url_list,)
@@ -33,7 +32,14 @@ def mentors():
     '''Renders the query result with:
         - name of the mentors
         - name and country of schools'''
-    return 'Mentors'
+    query = """
+            SELECT *
+            FROM mentors
+            """
+    query_result = functions.database_query(query)
+    print(query_result)
+    return render_template('query_result.html',
+                           query_result=query_result,)
 
 
 @app.route("/all-school/", methods=['GET'])
