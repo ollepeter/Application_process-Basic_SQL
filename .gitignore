@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# exclude the directory with old files
+/OLD_Files/
