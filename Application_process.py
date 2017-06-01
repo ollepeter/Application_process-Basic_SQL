@@ -101,7 +101,17 @@ def applicants():
     '''Renders the query result with:
         - name of appliciants
         - name of assigned mentors'''
-    return 'Applicants'
+    query = """
+            SELECT  applicants.first_name, applicants.application_code, applicants_mentors.creation_date
+            FROM applicants
+            FULL JOIN applicants_mentors
+            ON applicants.id = applicants_mentors.applicant_id
+            WHERE creation_date > '2016-01-01' OR creation_date ISNULL
+            ORDER BY applicants_mentors.creation_date DESC;
+            """
+    query_result = functions.database_query(query)
+    return render_template('query_result.html',
+                           query_result=query_result,)
 
 
 @app.route("/applicants-and-mentors/", methods=['GET'])
