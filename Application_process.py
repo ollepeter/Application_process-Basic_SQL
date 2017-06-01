@@ -35,7 +35,7 @@ def mentors():
     query = """
             SELECT mentors.id, mentors.first_name, mentors.last_name, schools.name, schools.city
             FROM mentors
-            RIGHT JOIN schools
+            INNER JOIN schools
             ON mentors.city = schools.city
             ORDER BY mentors.id;
             """
@@ -49,7 +49,16 @@ def all_school():
     '''Renders the query result with:
         - name of the mentors
         - name and country of schools extended'''
-    return 'All School'
+    query = """
+            SELECT mentors.id, mentors.first_name, mentors.last_name, schools.name, schools.city
+            FROM mentors
+            RIGHT JOIN schools
+            ON mentors.city = schools.city
+            ORDER BY mentors.id;
+            """
+    query_result = functions.database_query(query)
+    return render_template('query_result.html',
+                           query_result=query_result,)
 
 
 @app.route("/mentors-by-country/", methods=['GET'])
