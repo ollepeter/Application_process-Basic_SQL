@@ -104,5 +104,4 @@ ENV/
 /OLD_Files/
 
 # txt file with credentials for database access
-
 /config.txt
