@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>
             Application Process
         </title>
@@ -7,7 +9,9 @@
     <body>
         <ol id="navigation">
             {% for item in menu_list %}
-                <li><a href="{{ url_list[menu_list.index(item)] }}">See {{ item }}</a></li>
+                <li>
+                    <a href="{{ url_list[menu_list.index(item)] }}">Check {{ item }}</a>
+                </li>
             {% endfor %}
         </ol>
     </body>
