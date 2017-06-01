@@ -66,7 +66,18 @@ def mentors_by_country():
     '''Renders the query result with:
         - country
         - number of mentors'''
-    return 'Mentors by Country'
+    query = """
+            SELECT  schools.country AS "Country", COUNT(mentors.id) AS "Number of Mentors"
+            FROM mentors
+            FULL JOIN schools
+            ON mentors.city = schools.city
+            GROUP BY country
+            ORDER BY country;
+            """
+    query_result = functions.database_query(query)
+    return render_template('query_result.html',
+                           query_result=query_result,)
+
 
 
 @app.route("/contacts/", methods=['GET'])
