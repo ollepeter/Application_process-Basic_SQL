@@ -79,13 +79,21 @@ def mentors_by_country():
                            query_result=query_result,)
 
 
-
 @app.route("/contacts/", methods=['GET'])
 def contacts():
     '''Renders the query result with:
         - country
         - number of mentors'''
-    return 'Contacts'
+    query = """
+            SELECT  schools.name AS "School", mentors.first_name AS "Contact First Name", mentors.last_name "Contact Last Name"
+            FROM mentors
+            INNER JOIN schools
+            ON mentors.id = schools.contact_person
+            ORDER BY name ASC;
+            """
+    query_result = functions.database_query(query)
+    return render_template('query_result.html',
+                           query_result=query_result,)
 
 
 @app.route("/applicants/", methods=['GET'])
