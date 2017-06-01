@@ -33,11 +33,13 @@ def mentors():
         - name of the mentors
         - name and country of schools'''
     query = """
-            SELECT *
+            SELECT mentors.id, mentors.first_name, mentors.last_name, schools.name, schools.city
             FROM mentors
+            RIGHT JOIN schools
+            ON mentors.city = schools.city
+            ORDER BY mentors.id;
             """
     query_result = functions.database_query(query)
-    print(query_result)
     return render_template('query_result.html',
                            query_result=query_result,)
 
