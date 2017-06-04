@@ -8,13 +8,14 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def show_menu():
     '''Renders the Query Menu'''
-    menu_list = ['the name of the mentors plus the name and country of the school',
-                 'the name of the mentors plus the name and country of the school included all school',
-                 'the number of the mentors per country',
-                 'the name of the school plus the name of contact person at the school',
-                 'the first name and the code of the applicants plus the creation date of the application',
-                 'the first name and the code of the applicants plus the name of the assigned mentor',
+    menu_list = ['Mentors and schools',
+                 'All school',
+                 'Mentors by country',
+                 'Contacts',
+                 'Applicants',
+                 'Applicants and mentors',
                  ]
+
     url_list = [url_for('mentors'),
                 url_for('all_school'),
                 url_for('mentors_by_country'),
@@ -140,7 +141,7 @@ def applicants():
                     applicants.application_code AS "Applicant Code",
                     applicants_mentors.creation_date AS "Application Date"
             FROM applicants
-            FULL JOIN applicants_mentors
+            INNER JOIN applicants_mentors
             ON applicants.id = applicants_mentors.applicant_id
             WHERE creation_date > '2016-01-01' OR creation_date ISNULL
             ORDER BY applicants_mentors.creation_date DESC;
